@@ -6,47 +6,44 @@
 /*   By: ymometto <ymometto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:54:09 by ymometto          #+#    #+#             */
-/*   Updated: 2024/03/27 14:42:58 by ymometto         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:29:22 by ymometto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	error_message(t_list *a, char *msg)
+void	error_message(char *msg)
 {
-	ft_printf("%s", msg);
-	if (a != NULL)
-	{
-		if (a->value == NULL)
-			free(a);
-		else if (b->value != NULL)
-			free(b);
-	}
+	ft_putendl_fd(msg, 1);
 }
 
 void	verify(int argc, char **argv)
 {
-	int	index;
-	int	pos_letter;
+	int		index;
+	long	tmp;
+	char	**args;
 
-	pos_letter = 0;
-	index = 1;
-	if (argc < 2)
-		error_message(NULL, "");
-	while (index < argc)
+	index = 0;
+	if (argc == 2)
+		args = ft_split(argv[1], ' ');
+	else
 	{
-		pos_letter = 0;
-		if (!argv[index][0] || (argv[index][0] && argv[index][0] == ' '))
-			error_message(NULL, "Error\n");
-		while (argv[index][pos_letter])
-		{
-			if ((!(ft_isdigit(argv[index][pos_letter]))
-				&& argv[index][pos_letter] != ' '))
-				error_message(NULL, "Error\n");
-			pos_letter++;
-		}
+		index = 1;
+		args = argv;
+	}
+	while (args[index])
+	{
+		tmp = ft_atoi(args[index]);
+		if (tmp < -2147483648 || tmp > 2147483647)
+			error_message("Error");
+		if (ft_cmp(tmp, args, index))
+			error_message("Error");
+		if (!ft_isnbr(args[index]))
+			error_message("Error");
 		index++;
 	}
+	if (argc == 2)
+		ft_free(args);
 }
 
 int	*sort_arr(int *arr, int size)
@@ -71,61 +68,7 @@ int	*sort_arr(int *arr, int size)
 	return (arr);
 }
 
-int	list_size(t_list	*stack)
-{
-	t_list	*tmp;
-	int		index;
-
-	index = 0;
-	tmp = stack;
-	while (tmp != NULL)
-	{
-		index++;
-		tmp = tmp->nxt;
-	}
-	return (index);
-}
-
-int	*order_arr(t_list *stack)
-{
-	int	index;
-	int	size;
-	int	*arr;
-
-	index = 0;
-	size = list_size(stack);
-	arr = (int *)malloc(sizeof(int) * size);
-	if (!arr)
-		return (NULL);
-	while (index < size)
-	{
-		arr[index] = stack->value;
-		stack = stack->nxt;
-		index++;
-	}
-	sort_arr(arr, size);
-	return (arr);
-}
-
-void	create_index(t_list *a)
-{
-	t_list	*stack;
-	int		counter;
-	int		*arr;
-
-	counter = 0;
-		arr = order_arr(a);
-	while (arr[counter])
-	{
-		stack = a;
-		while (stack->value && stack->value != arr[counter])
-			stack = stack->nxt;
-		stack->index = counter;
-		counter++;
-	}
-}
-
-void	init_stacks(t_list **a, char **argv, int argc)
+void	init_stacks(t_list **a, char **argv)
 {
 	t_list	*s;
 	int		index;
@@ -134,7 +77,7 @@ void	init_stacks(t_list **a, char **argv, int argc)
 	while (argv[index])
 	{
 		s = ft_lstcreate(ft_atoi(argv[index]));
-		argv = ft_lstadd_back(a, s);
+		lstadd_back(a, s);
 		index++;
 	}
 }
@@ -149,6 +92,13 @@ int	main(int argc, char **argv)
 	b = (t_list **)malloc(sizeof(t_list));
 	*a = NULL;
 	*b = NULL;
-	init_stacks(a, argv, argc);
-	create_index(a);
+	init_stacks(a, argv);
+	create_index(*a);
+	if (is_sorted(a))
+	{
+		ft_free_stack(a);
+		ft_free_stack(b);
+		return (0);
+	}
+	
 }
