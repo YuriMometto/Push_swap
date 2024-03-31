@@ -16,10 +16,16 @@ int	sa(t_list **stack_a)
 {
 	int		size;
 	t_list	*tmp;
+	t_list	*swap;
 
-	size = list_size(stack_a);
 	tmp = stack_a;
-	while ()
+	if (stack->value && stack->nxt->value)
+	{
+		stack_a = stack_a->nxt;
+		tmp->nxt = stack_a->nxt;
+		stack_a->nxt = tmp;
+	}
+	return ();
 }
 int	sb(t_list **stack_b)
 int	ss(t_list **stack_a, t_list **stack_b)
