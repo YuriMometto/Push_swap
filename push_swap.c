@@ -23,14 +23,8 @@ void	verify(int argc, char **argv)
 	long	tmp;
 	char	**args;
 
-	index = 0;
-	if (argc == 2)
-		args = ft_split(argv[1], ' ');
-	else
-	{
-		index = 1;
-		args = argv;
-	}
+	index = 1;
+	args = argv;
 	while (args[index])
 	{
 		tmp = ft_atoi(args[index]);
@@ -94,11 +88,13 @@ int	main(int argc, char **argv)
 	*b = NULL;
 	init_stacks(a, argv);
 	create_index(*a);
-	if (is_sorted(a))
+	if (!is_sorted(a))
 	{
 		ft_free_stack(a);
 		ft_free_stack(b);
 		return (0);
 	}
-	
+	stack_sorter(stack_a, stack_b);
+	ft_free_stack(a);
+	ft_free_stack(b);
 }
