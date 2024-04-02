@@ -6,7 +6,7 @@
 /*   By: ymometto <ymometto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 10:38:11 by ymometto          #+#    #+#             */
-/*   Updated: 2024/03/28 10:43:00 by ymometto         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:50:02 by ymometto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_list	*ft_lstcreate(int value)
 	t_list	*new;
 
 	new = (t_list *)malloc(sizeof(t_list));
+	if (!new)
+		return (NULL);
 	new->value = value;
 	new->index = 0;
 	new->nxt = NULL;
@@ -59,35 +61,33 @@ int	*order_arr(t_list *stack)
 	return (arr);
 }
 
-void	create_index(t_list *a)
+void	create_index(t_list **a)
 {
-	t_list	*stack;
-	int		counter;
-	int		*arr;
+	t_list	*head;
+	int		index;
 
-	counter = 0;
-	arr = order_arr(a);
-	while (arr[counter])
+	index = 0;
+	head = get_next_min(a);
+	while (head)
 	{
-		stack = a;
-		while (stack->value && stack->value != arr[counter])
-			stack = stack->nxt;
-		stack->index = counter;
-		counter++;
+		head->index = index++;
+		head = get_next_min(a);
 	}
 }
 
 void	lstadd_back(t_list **lst, t_list *nw)
 {
-	t_list	*temp;
+	t_list	*tmp;
 
-	if (!*lst)
+	if (*lst)
+	{
+		tmp = ft_lstlast(*lst);
+		tmp->nxt = nw;
+		nw->nxt = NULL;
+	}
+	else
 	{
 		*lst = nw;
-		return ;
+		(*lst)->nxt = NULL;
 	}
-	temp = *lst;
-	while (temp->nxt != NULL)
-		temp = temp->nxt;
-	temp->nxt = nw;
 }

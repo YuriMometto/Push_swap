@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rotate.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymometto <ymometto@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/02 07:27:30 by ymometto          #+#    #+#             */
+/*   Updated: 2024/04/02 13:54:28 by ymometto         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -6,15 +17,15 @@ int	rotate(t_list **stack)
 	t_list	*tmp;
 	t_list	*last;
 
-	last = stack;
-	tmp = stack;
-	if (list_size(stack) < 2)
+	last = *stack;
+	tmp = *stack;
+	if (list_size(*stack) < 2)
 		return (-1);
 	while (last && last->nxt)
 	{
 		last = last->nxt;
 	}
-	stack = tmp->nxt;
+	*stack = tmp->nxt;
 	tmp->nxt = NULL;
 	last->nxt = tmp;
 	return (0);
@@ -46,4 +57,10 @@ int	rr(t_list **stack_a, t_list **stack_b)
 		return (0);
 	}
 	return (-1);
+}
+
+void	sa_rra(t_list **stack_a)
+{
+	sa(stack_a);
+	rra(stack_a);
 }

@@ -1,16 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   swap.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymometto <ymometto@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/02 07:27:48 by ymometto          #+#    #+#             */
+/*   Updated: 2024/04/02 13:54:04 by ymometto         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
 int	swap(t_list	**stack)
 {
 	t_list	*tmp;
+	t_list	*head;
 
-	tmp = stack;
-	if (stack && stack->nxt)
+	tmp = *stack;
+	head = *stack;
+	if (head && head->nxt)
 	{
-		stack = stack->nxt;
-		tmp->nxt = stack->nxt;
-		stack->nxt = tmp;
+		head = head->nxt;
+		tmp->nxt = head->nxt;
+		head->nxt = tmp;
+		*stack = head;
 		return (0);
 	}
 	return (-1);
@@ -42,4 +56,11 @@ int	ss(t_list **stack_a, t_list **stack_b)
 		return (0);
 	}
 	return (-1);
+}
+
+void	ra_sa_rra(t_list **stack_a)
+{
+	ra(stack_a);
+	sa(stack_a);
+	rra(stack_a);
 }

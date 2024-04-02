@@ -6,7 +6,7 @@
 /*   By: ymometto <ymometto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:46:36 by ymometto          #+#    #+#             */
-/*   Updated: 2024/03/28 13:42:31 by ymometto         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:23:35 by ymometto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,8 @@ void	ft_free(char **args)
 	index = 0;
 	while (args[index])
 		index++;
-	while (index > 0)
-	{
-		free(args[index]);
-		index--;
-	}
+	while (index >= 0)
+		free(args[index--]);
 }
 
 int	is_sorted(t_list **stack_a)
@@ -73,7 +70,7 @@ void	ft_free_stack(t_list **stack)
 	t_list	*tmp;
 	t_list	*hd;
 
-	hd = stack;
+	hd = *stack;
 	while (hd)
 	{
 		tmp = hd;
