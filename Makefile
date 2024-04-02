@@ -2,7 +2,8 @@ NAME = push_swap.a
 
 CFLAGS = -Wall -Werror -Wextra
 
-SRC = push_swap.c utils.c lst_create.c move1.c
+SRC = push_swap.c utils.c lst_create.c push.c swap.c rotate.c reverse_rotate.c
+stack_sort.c
 
 OBJ = $(SRC:.c=.o)
 

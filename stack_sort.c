@@ -1,5 +1,10 @@
 #include "push_swap.h"
 
+void	sort_three(t_list **stack_a)
+{
+
+}
+
 void	simple_sort(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*tmp;
