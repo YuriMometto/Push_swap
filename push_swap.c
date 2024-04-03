@@ -1,12 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
+
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymometto <ymometto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:54:09 by ymometto          #+#    #+#             */
-/*   Updated: 2024/04/02 15:53:52 by ymometto         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:29:22 by ymometto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +14,20 @@
 void	error_message(char *msg)
 {
 	ft_putendl_fd(msg, 1);
+	exit (0);
 }
 
-void	verify(int argc, char **argv)
+void	verify(int argc, char **argv, int index)
 {
-	int		index;
-	long	tmp;
-	char	**args;
+	long int	tmp;
+	char		**args;
 
-	index = 0;
 	if (argc == 2)
 		args = ft_split(argv[1], ' ');
 	else
 	{
-		index = 1;
 		args = argv;
+		index = 1;
 	}
 	while (args[index])
 	{
@@ -46,32 +44,10 @@ void	verify(int argc, char **argv)
 		ft_free(args);
 }
 
-int	*sort_arr(int *arr, int size)
-{
-	int	index;
-	int	temp;
-
-	temp = 0;
-	index = 0;
-	while (index < (size - 1))
-	{
-		if (arr[index] > arr[index + 1])
-		{
-			temp = arr[index];
-			arr[index] = arr[index + 1];
-			arr[index + 1] = temp;
-			index = 0;
-		}
-		else
-			index++;
-	}
-	return (arr);
-}
-
 void	init_stacks(t_list **a, int argc, char **argv)
 {
-	char	**args;
 	t_list	*s;
+	char	**args;
 	int		index;
 
 	index = 0;
@@ -79,7 +55,7 @@ void	init_stacks(t_list **a, int argc, char **argv)
 		args = ft_split(argv[1], ' ');
 	else
 	{
-		index = 0;
+		index = 1;
 		args = argv;
 	}
 	while (argv[index])
@@ -88,7 +64,6 @@ void	init_stacks(t_list **a, int argc, char **argv)
 		lstadd_back(a, s);
 		index++;
 	}
-	create_index(a);
 	if (argc == 2)
 		ft_free(args);
 }
@@ -97,16 +72,19 @@ int	main(int argc, char **argv)
 {
 	t_list	**a;
 	t_list	**b;
+	int		index;
 
 	if (argc < 2)
 		return (-1);
-	verify(argc, argv);
+	index = 0;
+	verify(argc, argv, index);
 	a = (t_list **)malloc(sizeof(t_list));
 	b = (t_list **)malloc(sizeof(t_list));
 	*a = NULL;
 	*b = NULL;
 	init_stacks(a, argc, argv);
-	if (!is_sorted(a))
+	create_index(a);
+	if (is_sorted(a))
 	{
 		ft_free_stack(a);
 		ft_free_stack(b);

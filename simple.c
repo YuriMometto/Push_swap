@@ -1,27 +1,15 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   simple.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ymometto <ymometto@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/02 13:55:08 by ymometto          #+#    #+#             */
-/*   Updated: 2024/04/02 15:46:15 by ymometto         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "push_swap.h"
 
-int	get_distance(t_list **stack, int index)
+int	get_distance(t_list **stack, int val)
 {
-	t_list	*tmp;
+	t_list *tmp;
 	int		distance;
 
 	distance = 0;
 	tmp = *stack;
 	while (tmp)
 	{
-		if (tmp->index == index)
+		if (tmp->index == val)
 			break ;
 		distance++;
 		tmp = tmp->nxt;
@@ -74,28 +62,4 @@ void	sort_five(t_list **stack_a, t_list **stack_b)
 	pb(stack_a, stack_b);
 	sort_four(stack_a, stack_b);
 	pa(stack_a, stack_b);
-}
-
-t_list	*get_next_min(t_list **stack)
-{
-	t_list	*head;
-	t_list	*min;
-	int		has_min;
-
-	min = NULL;
-	has_min = 0;
-	head = *stack;
-	if (head)
-	{
-		while (head)
-		{
-			if ((head->index == -1) && (!has_min || head->value < min->value))
-			{
-				min = head;
-				has_min = 1;
-			}
-			head = head->nxt;
-		}
-	}
-	return (min);
 }

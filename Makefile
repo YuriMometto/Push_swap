@@ -2,13 +2,13 @@ NAME = push_swap
 
 CFLAGS = -Wall -Werror -Wextra
 
-SRC = push_swap.c utils.c lst_create.c push.c swap.c rotate.c reverse_rotate.c stack_sort.c simple.c
+SRC = push_swap.c utils.c lst_create.c push.c swap.c rotate.c reverse_rotate.c stack_sort.c simple.c radix.c
 
 OBJ = $(SRC:.c=.o)
 
 $(NAME):	$(OBJ)
 	make -C ./libft
-	cc -g $(CFLAGS) $(OBJ) ./libft/libft.a -o $(NAME) 
+	cc -g $(CFLAGS) $(OBJ) ./libft/libft.a -o $(NAME)
 
 .c.o:
 	cc -g $(CFLAGS) -c $< -o $(<:.c=.o)

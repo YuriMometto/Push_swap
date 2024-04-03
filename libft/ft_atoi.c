@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *nptr)
+long int	ft_atoi(const char *nptr)
 {
-	int	index;
-	int	signal;
-	int	counter;
+	long int	index;
+	long int	signal;
+	long int	counter;
 
 	counter = 0;
 	signal = 1;

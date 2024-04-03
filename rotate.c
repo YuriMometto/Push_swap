@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ymometto <ymometto@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/02 07:27:30 by ymometto          #+#    #+#             */
-/*   Updated: 2024/04/02 13:54:28 by ymometto         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -19,7 +8,7 @@ int	rotate(t_list **stack)
 
 	last = *stack;
 	tmp = *stack;
-	if (list_size(*stack) < 2)
+	if (list_size(last) < 2)
 		return (-1);
 	while (last && last->nxt)
 	{

@@ -6,7 +6,7 @@
 /*   By: ymometto <ymometto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 07:30:43 by ymometto          #+#    #+#             */
-/*   Updated: 2024/04/02 15:49:41 by ymometto         ###   ########.fr       */
+/*   Updated: 2024/03/28 13:16:54 by ymometto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ typedef struct s_list
 	struct s_list	*nxt;
 }	t_list;
 
+void	error_message(char *msg);
 void	ft_free(char **args);
 void	init_stacks(t_list **a, int argc, char **argv);
 void	lstadd_back(t_list **lst, t_list *nw);
-void	verify(int argc, char **argv);
-void	error_message(char *msg);
+void	verify(int argc, char **argv, int index);
 void	create_index(t_list **a);
 //ordenation method
 void	stack_sorter(t_list **stack_a, t_list **stack_b);
@@ -35,8 +35,8 @@ void	simple_sort(t_list **stack_a, t_list **stack_b);
 void	sort_three(t_list **stack_a);
 void	sort_four(t_list **stack_a, t_list **stack_b);
 void	sort_five(t_list **stack_a, t_list **stack_b);
-void	radix_sort(t_list **stack_a, t_list **stack_b);
-void	ft_free_stack(t_list **stack);
+void	radix_sort(t_list **stack_a, t_list **stack_b, int index);
+void    ft_free_stack(t_list **stack);
 //aleatory
 void	ra_sa_rra(t_list **stack_a);
 void	sa_rra(t_list **stack_a);
@@ -57,15 +57,13 @@ int		rra(t_list **stack_a);
 int		rrb(t_list **stack_b);
 int		rrr(t_list **stack_a, t_list **stack_b);
 //utils
-int		get_distance(t_list **stack, int index);
-int		get_min(t_list **stack_a, int val);
 int		list_size(t_list *stack);
-int		*order_arr(t_list *stack);
-int		*sort_arr(int *arr, int size);
+int		get_min(t_list **stack_a, int val);
+int		get_distance(t_list **stack, int val);
+int		get_max_bits(t_list **stack);
 int		ft_isnbr(char *nbr);
-int		is_sorted(t_list **stack_a);
+int     is_sorted(t_list **stack_a);
 int		ft_cmp(int tmp, char **args, int index);
 t_list	*ft_lstcreate(int value);
-t_list	*ft_lstlast(t_list *head);
 t_list	*get_next_min(t_list **stack);
 #endif

@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ymometto <ymometto@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/02 07:27:48 by ymometto          #+#    #+#             */
-/*   Updated: 2024/04/02 13:54:04 by ymometto         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -17,8 +6,8 @@ int	swap(t_list	**stack)
 	t_list	*tmp;
 	t_list	*head;
 
-	tmp = *stack;
 	head = *stack;
+	tmp = *stack;
 	if (head && head->nxt)
 	{
 		head = head->nxt;

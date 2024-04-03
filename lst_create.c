@@ -6,7 +6,7 @@
 /*   By: ymometto <ymometto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 10:38:11 by ymometto          #+#    #+#             */
-/*   Updated: 2024/04/02 15:50:02 by ymometto         ###   ########.fr       */
+/*   Updated: 2024/03/28 10:43:00 by ymometto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ t_list	*ft_lstcreate(int value)
 	t_list	*new;
 
 	new = (t_list *)malloc(sizeof(t_list));
-	if (!new)
-		return (NULL);
 	new->value = value;
-	new->index = 0;
+	new->index = -1;
 	new->nxt = NULL;
 	return (new);
 }
@@ -40,54 +38,55 @@ int	list_size(t_list *stack)
 	return (index);
 }
 
-int	*order_arr(t_list *stack)
+t_list	*get_next_min(t_list **stack)
 {
-	int	index;
-	int	size;
-	int	*arr;
+	t_list	*tmp;
+	t_list	*min;
+	int		has_min;
 
-	index = 0;
-	size = list_size(stack);
-	arr = (int *)malloc(sizeof(int) * size);
-	if (!arr)
-		return (NULL);
-	while (index < size)
+	min = NULL;
+	has_min = 0;
+	tmp = *stack;
+	if (tmp)
 	{
-		arr[index] = stack->value;
-		stack = stack->nxt;
-		index++;
+		while (tmp)
+		{
+			if ((tmp->index == -1) && (!has_min || tmp->value < min->value))
+			{
+				min = tmp;
+				has_min = 1;
+			}
+			tmp = tmp->nxt;
+		}
 	}
-	sort_arr(arr, size);
-	return (arr);
+	return (min);
 }
 
 void	create_index(t_list **a)
 {
-	t_list	*head;
-	int		index;
+	t_list	*tmp;
+	int		counter;
 
-	index = 0;
-	head = get_next_min(a);
-	while (head)
+	counter = 0;
+	tmp = get_next_min(a);
+	while (tmp)
 	{
-		head->index = index++;
-		head = get_next_min(a);
+		tmp->index = counter++;
+		tmp = get_next_min(a);
 	}
 }
 
 void	lstadd_back(t_list **lst, t_list *nw)
 {
-	t_list	*tmp;
+	t_list	*temp;
 
-	if (*lst)
-	{
-		tmp = ft_lstlast(*lst);
-		tmp->nxt = nw;
-		nw->nxt = NULL;
-	}
-	else
+	if (!*lst)
 	{
 		*lst = nw;
-		(*lst)->nxt = NULL;
+		return ;
 	}
+	temp = *lst;
+	while (temp->nxt != NULL)
+		temp = temp->nxt;
+	temp->nxt = nw;
 }
